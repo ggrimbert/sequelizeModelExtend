@@ -1,5 +1,5 @@
-//~ const Model = require('sequelize/lib/model');
-//~ const _ = require('lodash');
+const Model = require('sequelize/lib/model');
+const _ = require('lodash');
  
 /* TODO A REVOIR !*/
 require('sequelize/lib/model').scope = function (option) {
