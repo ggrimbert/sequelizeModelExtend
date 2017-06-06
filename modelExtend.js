@@ -1,7 +1,8 @@
-const Model = require('sequelize/lib/model');
+//~ const Model = require('sequelize/lib/model');
+//~ const _ = require('lodash');
  
 /* TODO A REVOIR !*/
-Model.scope = function (option) {
+require('sequelize/lib/model').scope = function (option) {
   const self = class extends this {};
   let scope;
   let scopeName;
