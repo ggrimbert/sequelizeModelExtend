@@ -1,0 +1,12 @@
+{
+  "name": "sequelizeModelExtend",
+  "version": "1.0.0",
+  "description": "Extending Model.scope from Sequelize",
+  "main": "modelExtend.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ggrimbert/sequelizeModelExtend.git"
+  },
+  "author": "Guillaume GRIMBERT",
+  "license": "Chromium's License"
+} 
