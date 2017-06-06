@@ -10,7 +10,7 @@
   "dependencies" : {
 	"lodash": "^4.16.6",
 	"sequelize" : "git+https://github.com/konnecteam/sequelize#masterIdentifier"
-  }
+  },
   "author": "Guillaume GRIMBERT",
   "license": "Chromium's License"
 } 
