@@ -1,5 +1,10 @@
 const Model = require('sequelize/lib/model');
 const _ = require('lodash');
+const Promise = require('sequelize/lib/promise');
+const sequelizeErrors = require('sequelize/lib/errors');
+const Sequelize = require("sequelize");
+const retry = require('retry-as-promised');
+const Utils = require('sequelize/lib/utils');
  
 /* TODO A REVOIR !*/
 module.exports.ModelExtend = function ModelExtend(option) {
@@ -73,50 +78,6 @@ module.exports.ModelExtend = function ModelExtend(option) {
  * Permet de gérer la perte / récupération de connexion à la base de données
  */
 module.exports.SequelizeQuery = function SequelizeQuery(sql, options) {
-/**
- * Execute a query on the DB, with the possibility to bypass all the sequelize goodness.
- *
- * By default, the function will return two arguments: an array of results, and a metadata object, containing number of affected rows etc. Use `.spread` to access the results.
- *
- * If you are running a type of query where you don't need the metadata, for example a `SELECT` query, you can pass in a query type to make sequelize format the results:
- *
- * ```js
- * sequelize.query('SELECT...').spread((results, metadata) => {
- *   // Raw query - use spread
- * });
- *
- * sequelize.query('SELECT...', { type: sequelize.QueryTypes.SELECT }).then(results => {
- *   // SELECT query - use then
- * })
- * ```
- *
- * @method query
- * @param {String}          sql
- * @param {Object}          [options={}] Query options.
- * @param {Boolean}         [options.raw] If true, sequelize will not try to format the results of the query, or build an instance of a model from the result
- * @param {Transaction}     [options.transaction=null] The transaction that the query should be executed under
- * @param {QueryTypes}      [options.type='RAW'] The type of query you are executing. The query type affects how results are formatted before they are passed back. The type is a string, but `Sequelize.QueryTypes` is provided as convenience shortcuts.
- * @param {Boolean}         [options.nest=false] If true, transforms objects with `.` separated property names into nested objects using [dottie.js](https://github.com/mickhansen/dottie.js). For example { 'user.username': 'john' } becomes { user: { username: 'john' }}. When `nest` is true, the query type is assumed to be `'SELECT'`, unless otherwise specified
- * @param {Boolean}         [options.plain=false] Sets the query type to `SELECT` and return a single row
- * @param {Object|Array}    [options.replacements] Either an object of named parameter replacements in the format `:param` or an array of unnamed replacements to replace `?` in your SQL.
- * @param {Object|Array}    [options.bind] Either an object of named bind parameter in the format `_param` or an array of unnamed bind parameter to replace `$1, $2, ...` in your SQL.
- * @param {Boolean}         [options.useMaster=false] Force the query to use the write pool, regardless of the query type.
- * @param {Function}        [options.logging=false] A function that gets executed while running the query to log the sql.
- * @param {new Model()}       [options.instance] A sequelize instance used to build the return instance
- * @param {Model}           [options.model] A sequelize model used to build the returned model instances (used to be called callee)
- * @param {Object}          [options.retry] Set of flags that control when a query is automatically retried.
- * @param {Array}           [options.retry.match] Only retry a query if the error matches one of these strings.
- * @param {Integer}         [options.retry.max] How many times a failing query is automatically retried.
- * @param {String}          [options.searchPath=DEFAULT] An optional parameter to specify the schema search_path (Postgres only)
- * @param {Boolean}         [options.supportsSearchPath] If false do not prepend the query with the search_path (Postgres only)
- * @param {Boolean}          [options.mapToModel=false] Map returned fields to model's fields if `options.model` or `options.instance` is present. Mapping will occur before building the model instance.
- * @param {Object}          [options.fieldMap] Map returned fields to arbitrary names for `SELECT` query type.
- *
- * @return {Promise}
- *
- * @see {@link Model.build} for more information about instance option.
- */
-
 let bindParameters;
 
 return Promise.try(() => {
