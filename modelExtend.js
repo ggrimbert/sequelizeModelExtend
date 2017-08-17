@@ -5,6 +5,7 @@ const sequelizeErrors = require('sequelize/lib/errors');
 const Sequelize = require("sequelize");
 const retry = require('retry-as-promised');
 const Utils = require('sequelize/lib/utils');
+const QueryTypes = require('sequelize/lib/query-types');
  
 /* TODO A REVOIR !*/
 module.exports.ModelExtend = function ModelExtend(option) {
